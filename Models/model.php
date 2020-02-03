@@ -108,6 +108,13 @@ class Model {
             $this->sendContact($contact);
         }
     }
+    //upload entire contact list to db
+    public function rewrite($myContacts) {
+        $this->empty();
+        foreach($this->contacts as $contact) {
+            sendContact($contact);
+        }
+    }
     //-------------------------------------------- private methods
     //send newly created contact to db
     private function sendContact($myContact) {
@@ -202,7 +209,7 @@ class Model {
         //close
         $sql->close();
     }
-    //empty out database
+    //empty out database table
     private function empty() {
         $table_name = "tblContacts";
         $connection = db_connect();
@@ -210,10 +217,9 @@ class Model {
         if ($connection->connect_error) {
             die("Connection failed: " . $connection->connect_error);
         }
-    }
-    //upload entire contact list to db
-    private function rewrite($myContacts) {
-        $this->empty();
+        //execute sql
+        $sql = "TRUNCATE TABLE $table_name";
+        $result = @mysqli_query($connection, $sql) or die(mysqli_error($connection));
     }
 
     
