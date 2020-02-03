@@ -96,9 +96,7 @@ class Contact {
         $this->birthday = "";
         $this->int = null;
     }
-    public function sendEmail() {
-
-    }
+    //returns the month of the birthday
     public function birthdayMonth() {
         $month = date('m', strtotime($this->birthday));
         return $month;

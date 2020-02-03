@@ -2,6 +2,13 @@
 require_once '../Models/model.php';
 $model = new Model();
 $model->retrieveContacts();
+session_start();
+$ids = array();
+foreach($model->birthdays() as $contact) {
+    $id = $contact->getId();
+    array_push($ids, $id);
+}
+$_SESSION['ids'] = $ids;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -63,7 +70,7 @@ $model->retrieveContacts();
                             <td class='actions'>
                                 <form method='post' action='../Controller/controller.php'>
                                     <input type='hidden' name='id' value=".$contact->getId().">
-                                    <input type='hidden' name='action' value='emailPage'>
+                                    <input type='hidden' name='action' value='emailIndividual'>
                                     <button type='submit' class='button'><i class='fas fa-mail-bulk'></i></button>
                                 </form>
                             </td>

@@ -17,6 +17,8 @@ if ($_POST['action'] == "editPage") {
     delete($model);
 } else if ($_POST['action'] == "emailPage") {
     emailPage();
+} else if ($_POST['action'] == "emailIndividual") {
+    emailPage();
 }
 //takes you to the edit page
 function editPage() {
@@ -50,6 +52,7 @@ function edit($myModel) {
 function deletePage() {
     header("Location: ../Views/delete.php");
     $_SESSION['id'] = $_POST["id"];
+    exit;
 }
 //completes the delete
 function delete($myModel) {
@@ -88,5 +91,8 @@ function add($myModel) {
 //takes you to the email page
 function emailPage() {
     header("Location: ../Views/email.php");
+    if (isset($_POST["id"])) {
+        $_SESSION['id'] = $_POST["id"];
+    }
     exit;
 }
