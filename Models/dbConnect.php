@@ -18,11 +18,14 @@ function db_connect() {
     }
     return $connection;
 }
-
+function db_close($connection) {
+    //close the connection
+    $connection->close();
+}
 // Connect to the database
-$connection = db_connect();
+//$connection = db_connect();
 
 // Check connection
-if ($connection->connect_error) {
-    die("Connection failed: " . $connection->connect_error);
-}
+// if ($connection->connect_error) {
+//     die("Connection failed: " . $connection->connect_error);
+// }

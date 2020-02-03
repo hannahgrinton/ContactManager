@@ -66,7 +66,11 @@ $model->retrieveContacts();
                                     <input type='hidden' name='action' value='deletePage'>
                                     <button type='submit' class='button'><i class='fas fa-trash'></i></button>
                                 </form>
-
+                                <form method='post' action='../Controller/controller.php'>
+                                    <input type='hidden' name='id' value=".$contact->getId().">
+                                    <input type='hidden' name='action' value='emailIndividual'>
+                                    <button type='submit' class='button'><i class='fas fa-mail-bulk'></i></button>
+                                </form>
                             </td>
                         </tr>";
                     }

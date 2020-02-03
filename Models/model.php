@@ -6,7 +6,7 @@ class Model {
     //private variables
     private $contacts = array(); //contacts from db
     private $csvContacts = array(); //contacts from csv
-    //contructor
+    //-------------------------------------------- constructor
     public function __construct() {}
     //-------------------------------------------- gets / sets
     public function getContacts() {
@@ -47,6 +47,19 @@ class Model {
         $contact->setPostal($myPostal);
         $contact->setBirthday($myBirthday);
         $this->edit($contact);
+    }
+    //calls the get emails function - emails a specific group
+    public function emailGroup($ids) {
+        $contacts = array();
+        foreach($ids as $id) {
+            $contact = $this->getContact($id);
+            array_push($contacts, $contact);
+        }
+        return $this->getEmails($contacts);
+    }
+    //calls the get emails function - emails everyone on list
+    public function emailAll() {
+        return $this->getEmails($this->contacts);
     }
     //returns a list of all contacts with a birthday in the current month
     public function birthdays() {
@@ -119,6 +132,7 @@ class Model {
             $contact = new Contact($id, $firstname, $surname, $phone, $email, $address, $city, $province, $postal, $birthday);
             array_push($this->contacts, $contact);
         }
+        db_close($connection);
     }
     //append list of contacts
     public function append($myContacts) {
@@ -238,7 +252,16 @@ class Model {
         //execute sql
         $sql = "TRUNCATE TABLE $table_name";
         $result = @mysqli_query($connection, $sql) or die(mysqli_error($connection));
+        db_close();
     }
-
+    //get the emails for the array of contacts passed in
+    private function getEmails($myContacts) {
+        $emails = array();
+        foreach($myContacts as $contact) {
+            $email = $contact->getEmail();
+            array_push($emails, $email);
+        }
+        return $emails;
+    }
     
 }
