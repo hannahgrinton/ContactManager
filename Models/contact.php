@@ -99,8 +99,9 @@ class Contact {
     public function sendEmail() {
 
     }
-    public function birthdayDate() {
-
+    public function birthdayMonth() {
+        $month = date('m', strtotime($this->birthday));
+        return $month;
     }
     //------------------------------------------------ private methods
    

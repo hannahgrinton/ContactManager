@@ -18,7 +18,7 @@ $model = new Model();
         <div class="content__head">
             <div class="title">Contact Management</div>
             <div class="nav">
-                <div class="nav-item"><a href="add.php" class="nav-links">Add</a></div>
+                <div class="nav-item"><a class="nav-links disabled">Add</a></div>
                 <div class="nav-item"><a href="email.php" class="nav-links">Email</a></div>
                 <div class="nav-item"><a href="birthday.php" class="nav-links">Birthday</a></div>
                 <div class="nav-item"><a href="upload.php" class="nav-links">Upload</a></div>

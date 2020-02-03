@@ -43,6 +43,14 @@ body {
     color: rgb(130, 168, 199);
     border-bottom: 2px solid rgb(130, 168, 199);
 }
+a.disabled {
+    pointer-events: none;
+    cursor: default;
+}
+a.disabled:hover {
+    color: #f2f2f2;
+    border: 0;
+}
 .content__main {
     display: flex;
     flex-flow: column nowrap;
@@ -104,6 +112,31 @@ tr:nth-child(even) {background-color: #f2f2f2;}
     font-size: 24px;
     color: rgb(28, 51, 70);
     margin-top: 20px;
+}
+.month {
+    font-size: 26px;
+    color: rgb(48, 87, 119);
+    margin-top: 20px;
+}
+.action-choices {
+    margin-top: 30px;
+    margin-bottom: 20px;
+    width: 180px;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+}
+.choices-options {
+    background-color: rgb(48, 87, 119);
+    color: rgb(212, 221, 228);
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 14px;
+    width: 100px;
+    text-decoration: none;
+}
+.choices-options:hover {
+    background-color: rgb(28, 51, 70);
 }
 .form {
     margin-top: 20px;

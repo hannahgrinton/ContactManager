@@ -15,6 +15,8 @@ if ($_POST['action'] == "editPage") {
     add($model);
 } else if ($_POST['action'] == "delete") {
     delete($model);
+} else if ($_POST['action'] == "emailPage") {
+    emailPage();
 }
 //takes you to the edit page
 function editPage() {
@@ -82,4 +84,9 @@ function add($myModel) {
         exit;
     }
     
+}
+//takes you to the email page
+function emailPage() {
+    header("Location: ../Views/email.php");
+    exit;
 }

@@ -48,6 +48,25 @@ class Model {
         $contact->setBirthday($myBirthday);
         $this->edit($contact);
     }
+    //returns a list of all contacts with a birthday in the current month
+    public function birthdays() {
+        $birthdays = array();
+        foreach($this->contacts as $contact) {
+            $birthday = DateTime::createFromFormat('!m', $contact->birthdayMonth());
+            $birthday = $birthday->format('F');
+            if ($birthday == $this->currentMonth()) {
+                array_push($birthdays, $contact);
+            }
+        }
+        return $birthdays;
+    }
+    //returns name of current month
+    public function currentMonth() {
+        $monthNum  = date("m");
+        $dateObj   = DateTime::createFromFormat('!m', $monthNum);
+        $monthName = $dateObj->format('F');
+        return $monthName;
+    }
     //read csv contacts and put in array
     public function readContacts() {
         $this->csvContacts = array();
@@ -100,7 +119,6 @@ class Model {
             $contact = new Contact($id, $firstname, $surname, $phone, $email, $address, $city, $province, $postal, $birthday);
             array_push($this->contacts, $contact);
         }
-        //print_r($this->contacts);
     }
     //append list of contacts
     public function append($myContacts) {
