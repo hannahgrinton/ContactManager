@@ -191,9 +191,21 @@ tr:nth-child(even) {background-color: #f2f2f2;}
 .input__text, .input__email {
     width: 250px;
 }
+.input-long {
+    margin-top: 10px;
+    width: 400px;
+}
 .shorter {
     width: 120px;
 }
 .input__short {
     width: 40px;
+}
+.textarea-section {
+    margin-left: 10px;
+}
+.textarea {
+    margin-top: 10px;
+    height: 100%;
+    padding: 15px;
 }

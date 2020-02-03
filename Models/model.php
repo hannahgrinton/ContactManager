@@ -61,6 +61,11 @@ class Model {
     public function emailAll() {
         return $this->getEmails($this->contacts);
     }
+    //sends the email
+    public function sendEmail($to, $subject, $message) {
+        $mailheaders = "From: My Web Site <admin@contactmanager.ca> \n";
+        mail($to, $subject, $message, $mailheaders);
+    }
     //returns a list of all contacts with a birthday in the current month
     public function birthdays() {
         $birthdays = array();

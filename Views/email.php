@@ -53,6 +53,38 @@ if (isset($_SESSION['id'])) {
         </div>
         <div class="content__main">
             <div class="action-title"><i class='fas fa-mail-bulk'></i>&nbsp;Send an Email</div>
+            <form action="../Controller/controller.php" method="post" class="form">
+                <?php
+                    if ($emails != null) {
+                        echo "
+                            <div class='form__section'>
+                                <label for='emailTo'>To:</label>
+                                <input type='text' name='emailTo' value='". implode(', ', $emails) ."' class='input input-long' required>
+                            </div>
+                        ";
+                    } else {
+                        echo "
+                            <div class='form__section'>
+                                <label for='emailTo'>To:</label>
+                                <input type='text' name='emailTo' value='". $email ."' class='input input-long' required>
+                            </div>
+                        ";
+                    }
+                ?>
+                <div class='form__section'>
+                    <label for='emailSubject'>Subject:</label>
+                    <input type='text' name='emailSubject' class='input input-long' max-length="50" required>
+                </div>
+                <div class='form_section textarea-section'>
+                    <label for='emailMessage'>Message:</label>
+                    <textarea maxlength="500" name="emailMessage" class="input textarea" rows="8" cols="45" required></textarea>
+                </div>
+                <div class='form__buttons'>
+                    <input type='hidden' name='action' value='sendMail'>
+                    <input type='submit' value='Send' class='form__button'>
+                    <a href='index.php' class='form__cancel'>Cancel</a>
+                </div>
+            </form>
         </div>
     </div>
 </body>

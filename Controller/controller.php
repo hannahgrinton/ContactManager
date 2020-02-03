@@ -1,5 +1,4 @@
 <?php
-
 require_once '../Models/model.php';
 //declare model
 $model = new Model();
@@ -19,6 +18,8 @@ if ($_POST['action'] == "editPage") {
     emailPage();
 } else if ($_POST['action'] == "emailIndividual") {
     emailPage();
+} else if ($_POST['action'] == "sendEmail") {
+    email($model);
 }
 //takes you to the edit page
 function editPage() {
@@ -95,4 +96,17 @@ function emailPage() {
         $_SESSION['id'] = $_POST["id"];
     }
     exit;
+}
+function email($myModel) {
+    $model = $myModel;
+    if (isset($_POST["emailTo"]) && 
+        isset($_POST["emailSubject"]) && 
+        isset($_POST["emailMessage"])) {
+            $model->sendEmail($_POST['emailTo'], $_POST['emailSubject'], $_POST['emailMessage']);
+            header("Location: ../Views/index.php");
+            exit;
+    }else {
+        header("Location: ../Views/email.php");
+        exit;
+    }
 }
