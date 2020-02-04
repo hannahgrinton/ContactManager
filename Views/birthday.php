@@ -1,18 +1,12 @@
 <?php 
 require_once '../Models/model.php';
 session_start();
-$ids = array();
 if(!isset($_SESSION['auth']) || !isset($_SESSION['user'])) {
 	//access denied
 	header("Location: login.php");
 } else {
     $model = new Model();
     $model->retrieveContacts();
-    foreach($model->birthdays() as $contact) {
-        $id = $contact->getId();
-        array_push($ids, $id);
-    }
-    $_SESSION['ids'] = $ids;
 }
 
 ?>
@@ -45,7 +39,14 @@ if(!isset($_SESSION['auth']) || !isset($_SESSION['user'])) {
             <div class="month"><?php echo $model->currentMonth(); ?></div>
             <div class="action-choices">
                 <div><a href="index.php" class="choices-options"><i class="fas fa-arrow-left"></i>&nbsp;Back</a></div>
-                <div><a href="email.php" class="choices-options"><i class="fas fa-mail-bulk"></i>&nbsp;Email All</a></div class="choices-options">
+                <div>
+                    <form method="post" action="../Controller/controller.php">
+                        <input type="hidden" name="action" value="emailGroup">
+                        <button type="submit" class="choices-options--button choices-options">
+                            <i class="fas fa-mail-bulk"></i>&nbsp;Email All
+                        </button>
+                    </form>
+                </div>
             </div>
             <table>
                 <tr>

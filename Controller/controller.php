@@ -15,10 +15,10 @@ if ($_POST['action'] == "editPage") {
     add($model);
 } else if ($_POST['action'] == "delete") {
     delete($model);
-} else if ($_POST['action'] == "emailPage") {
-    emailPage();
 } else if ($_POST['action'] == "emailIndividual") {
-    emailPage();
+    emailPage($model);
+} else if ($_POST['action'] == "emailGroup") {
+    emailPage($model);
 } else if ($_POST['action'] == "sendEmail") {
     email($model);
 } else if ($_POST['action'] == "login") {
@@ -118,13 +118,24 @@ function add($myModel) {
     
 }
 //takes you to the email page
-function emailPage() {
-    header("Location: ../Views/email.php");
+function emailPage($myModel) {
+    $model = $myModel;
     if (isset($_POST["id"])) {
         $_SESSION['id'] = $_POST["id"];
+    } else {
+        $model->retrieveContacts();
+        $ids = array();
+        $birthdays = $model->birthdays();
+        foreach($birthdays as $contact) {
+            $id = $contact->getId();
+            array_push($ids, $id);
+        }
+        $_SESSION['ids'] = $ids;
     }
+    header("Location: ../Views/email.php");
     exit;
 }
+//completes the email
 function email($myModel) {
     $model = $myModel;
     if (isset($_POST["emailTo"]) && 

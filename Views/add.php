@@ -1,10 +1,12 @@
 <?php
 require_once '../Models/model.php';
+session_start();
 if(!isset($_SESSION['auth']) || !isset($_SESSION['user'])) {
 	//access denied
 	header("Location: login.php");
 } else {
     $model = new Model();
+    $model->retrieveContacts();
 }
 ?>
 <!DOCTYPE html>
