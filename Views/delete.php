@@ -36,7 +36,7 @@ if(!isset($_SESSION['auth']) || !isset($_SESSION['user'])) {
                 <div class="nav-item"><a href="birthday.php" class="nav-links">Birthday</a></div>
                 <div class="nav-item"><a href="upload.php" class="nav-links">Upload</a></div>
                 <div class="nav-item"><a href="export.php" class="nav-links">Export</a></div>
-                <div class="nav-item"><a href="logout.php" class="nav-links">Logout</a></div>
+                <div class="nav-item"><a href="login.php" class="nav-links">Logout</a></div>
             </div>
         </div>
         <div class="content__main">
