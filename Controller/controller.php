@@ -1,8 +1,9 @@
 <?php
 require_once '../Models/model.php';
+require_once '../Models/webLogin.php';
 //declare model
 $model = new Model();
-session_start();
+//session_start();
 
 if ($_POST['action'] == "editPage") {
     editPage();
@@ -20,6 +21,33 @@ if ($_POST['action'] == "editPage") {
     emailPage();
 } else if ($_POST['action'] == "sendEmail") {
     email($model);
+} else if ($_POST['action'] == "login") {
+    checkLogin();
+}
+//check login info
+function checkLogin() {
+    if ((isset($_POST['username'])) && isset($_POST['password'])) {
+        $username = $_POST['username'];
+        $password = $_POST['password'];
+        login($username, $password);
+        
+    } else {
+        header("Location: ../Views/login.php");
+    }
+}
+//ask model if login works
+function login($username, $password) {
+    $webLogin = new WebLogin();
+    $webLogin->setUsername($username);
+    $webLogin->setPassword($password);
+    //do I have access?
+    if ($webLogin->unlock()) {
+        //access granted
+        header("Location: ../Views/index.php");
+    } else {
+        //access denied
+        header("Location: ../Views/login.php");
+    }
 }
 //takes you to the edit page
 function editPage() {
