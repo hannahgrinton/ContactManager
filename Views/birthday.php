@@ -1,14 +1,20 @@
 <?php 
 require_once '../Models/model.php';
-$model = new Model();
-$model->retrieveContacts();
 session_start();
 $ids = array();
-foreach($model->birthdays() as $contact) {
-    $id = $contact->getId();
-    array_push($ids, $id);
+if(!isset($_SESSION['auth']) || !isset($_SESSION['user'])) {
+	//access denied
+	header("Location: login.php");
+} else {
+    $model = new Model();
+    $model->retrieveContacts();
+    foreach($model->birthdays() as $contact) {
+        $id = $contact->getId();
+        array_push($ids, $id);
+    }
+    $_SESSION['ids'] = $ids;
 }
-$_SESSION['ids'] = $ids;
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

@@ -1,6 +1,11 @@
 <?php
 require_once '../Models/model.php';
-$model = new Model();
+if(!isset($_SESSION['auth']) || !isset($_SESSION['user'])) {
+	//access denied
+	header("Location: login.php");
+} else {
+    $model = new Model();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">

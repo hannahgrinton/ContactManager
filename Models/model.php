@@ -137,7 +137,7 @@ class Model {
             $contact = new Contact($id, $firstname, $surname, $phone, $email, $address, $city, $province, $postal, $birthday);
             array_push($this->contacts, $contact);
         }
-        db_close($connection);
+        //db_close($connection);
     }
     //append list of contacts
     public function append($myContacts) {

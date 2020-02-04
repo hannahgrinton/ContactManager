@@ -80,7 +80,7 @@ function edit($myModel) {
 //takes you to the delete page
 function deletePage() {
     header("Location: ../Views/delete.php");
-    $_SESSION['id'] = $_POST["id"];
+    $_SESSION['id'] = $_POST['id'];
     exit;
 }
 //completes the delete
@@ -92,7 +92,7 @@ function delete($myModel) {
         header("Location: ../Views/index.php");
         exit;
     }else {
-        header("Location: ../Views/edit.php");
+        header("Location: ../Views/delete.php");
         exit;
     }
 }

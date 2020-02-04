@@ -1,13 +1,19 @@
 <?php
 require_once '../Models/model.php';
-$model = new Model();
-$model->retrieveContacts();
 session_start();
 $contact = null;
-if(isset($_SESSION['id'])){
-    $contact = $model->getContact($_SESSION['id']);
-    unset($_SESSION['id']);
+if(!isset($_SESSION['auth']) || !isset($_SESSION['user'])) {
+	//access denied
+	header("Location: login.php");
+} else {
+    $model = new Model();
+    $model->retrieveContacts();
+    if(isset($_SESSION['id'])){
+        $contact = $model->getContact($_SESSION['id']);
+        unset($_SESSION['id']);
+    }
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

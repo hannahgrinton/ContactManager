@@ -1,31 +1,37 @@
 <?php
 require_once '../Models/model.php';
-$model = new Model();
-$model->retrieveContacts();
 session_start();
 //prepare variables to hold data
 $ids = array();
 $id = null;
 $email = null;
 $emails = array();
-//check session data
-if (isset($_SESSION['id'])) {
-    //if an id was passed in
-    $id =  $_SESSION['id'];
-    unset($_SESSION['id']);
-    $contact = $model->getContact($id);
-    $email = $contact->getEmail();
-} else if (isset($_SESSION['ids'])) {
-    //if we have an array of ids
-    foreach($_SESSION['ids'] as $id) {
-        array_push($ids, $id);
-    }
-    $emails = $model->emailGroup($ids);
-    unset($_SESSION['ids']);
+if(!isset($_SESSION['auth']) || !isset($_SESSION['user'])) {
+	//access denied
+	header("Location: login.php");
 } else {
-    //we want to email everyone
-    $emails = $model->emailAll();
+    $model = new Model();
+    $model->retrieveContacts();
+    //check session data
+    if (isset($_SESSION['id'])) {
+        //if an id was passed in
+        $id =  $_SESSION['id'];
+        unset($_SESSION['id']);
+        $contact = $model->getContact($id);
+        $email = $contact->getEmail();
+    } else if (isset($_SESSION['ids'])) {
+        //if we have an array of ids
+        foreach($_SESSION['ids'] as $id) {
+            array_push($ids, $id);
+        }
+        $emails = $model->emailGroup($ids);
+        unset($_SESSION['ids']);
+    } else {
+        //we want to email everyone
+        $emails = $model->emailAll();
+    }
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
