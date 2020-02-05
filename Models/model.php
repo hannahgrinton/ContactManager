@@ -86,9 +86,9 @@ class Model {
         return $monthName;
     }
     //read csv contacts and put in array
-    public function readContacts() {
+    public function readContacts($fileName) {
         $this->csvContacts = array();
-        $file = fopen("clientInfo.csv","r");
+        $file = fopen($fileName,"r");
         while(! feof($file)) {
             $info = fgetcsv($file);
             $firstname = $info[0];
@@ -104,10 +104,11 @@ class Model {
             array_push($this->csvContacts, $contact);
         }
         fclose($file);
+        return $this->csvContacts;
     }
     //write contacts from db to csv
     public function writeContacts() {
-        $file = fopen("clientInfo.csv","w");
+        $file = fopen("../Assets/clientInfo.csv","w");
         //write to file
         fputcsv($file, $this->contacts, ",");
         //close file
@@ -148,8 +149,8 @@ class Model {
     //upload entire contact list to db
     public function rewrite($myContacts) {
         $this->empty();
-        foreach($this->contacts as $contact) {
-            sendContact($contact);
+        foreach($myContacts as $contact) {
+            $this->sendContact($contact);
         }
     }
     //-------------------------------------------- private methods
@@ -257,7 +258,7 @@ class Model {
         //execute sql
         $sql = "TRUNCATE TABLE $table_name";
         $result = @mysqli_query($connection, $sql) or die(mysqli_error($connection));
-        db_close();
+        // db_close();
     }
     //get the emails for the array of contacts passed in
     private function getEmails($myContacts) {

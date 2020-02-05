@@ -23,6 +23,8 @@ if ($_POST['action'] == "editPage") {
     email($model);
 } else if ($_POST['action'] == "login") {
     checkLogin();
+} else if ($_POST['action'] == "upload") {
+    upload($model);
 }
 //check login info
 function checkLogin() {
@@ -148,4 +150,39 @@ function email($myModel) {
         header("Location: ../Views/email.php");
         exit;
     }
+}
+//completes the upload
+function upload($myModel) {
+    $model = $myModel;
+    $csv_mimetypes = array(
+        'text/csv',
+        'text/plain',
+        'application/csv',
+        'text/comma-separated-values',
+        'application/excel',
+        'application/vnd.ms-excel',
+        'application/vnd.msexcel',
+        'text/anytext',
+        'application/octet-stream',
+        'application/txt',
+    );
+    $target_dir = "../Assets/";
+    $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+    if (in_array($_FILES['fileToUpload']['type'], $csv_mimetypes)) {
+        //it's a csv
+        $contacts = $model->readContacts($target_file);
+        if (isset($_POST['overwrite']) && $_POST['overwrite'] == 'yes') {
+            //overwrite database
+            $model->rewrite($contacts);
+        } else {
+            //append to database
+            $model->append($contacts);
+        }
+        header("Location: ../Views/index.php");
+    } else {
+        //file is not csv
+        header("Location: ../Views/upload.php");
+
+    }
+
 }
