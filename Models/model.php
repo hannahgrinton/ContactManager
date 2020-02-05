@@ -110,7 +110,10 @@ class Model {
     public function writeContacts() {
         $file = fopen("../Assets/clientInfo.csv","w");
         //write to file
-        fputcsv($file, $this->contacts, ",");
+        foreach ($this->contacts as $contact) {
+            $contact = (array) $contact;
+            fputcsv($file, $contact, ",");
+        }
         //close file
         fclose($file);
     }
